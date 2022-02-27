@@ -5,3 +5,5 @@ To start the project go to the folder "native" and create a build folder quer yo
 To import any library add it at the "lib" folder and execute your cmake command.
 
 To add any code file just execute the cmake command.
+
+You may need to link your library on the Godot Engine.
