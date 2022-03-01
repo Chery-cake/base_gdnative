@@ -17,8 +17,24 @@ MACRO(LIB_FINDER return_list)
     SET(${return_list} ${dir_list})
 ENDMACRO()
 
+MACRO(SUBDIRLIST result curdir)
+    FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+    SET(dirlist "")
+    FOREACH(child ${children})
+        IF(IS_DIRECTORY ${curdir}/${child})
+        LIST(APPEND dirlist ${child})
+    ENDIF()
+    ENDFOREACH()
+    SET(${result} ${dirlist})
+ENDMACRO()
 
 set(GODOT_CUSTOM_API_FILE "${CMAKE_CURRENT_SOURCE_DIR}/api/api.json")
 
-add_subdirectory(godot-cpp)
+SUBDIRLIST(SUBDIRS ${CMAKE_CURRENT_SOURCE_DIR})
+
+FOREACH(subdir ${SUBDIRS})
+    if(EXISTS "${subdir}/CMakeLists.txt")
+        ADD_SUBDIRECTORY(${subdir})
+    endif()
+ENDFOREACH()
 
