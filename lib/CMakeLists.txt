@@ -52,8 +52,6 @@ ExternalProject_Add(godot-cpp
     LOG_BUILD ON
 )
 
-
-
 message(${CMAKE_CURRENT_BINARY_DIR})
 
 MACRO(ADDGODOT)
