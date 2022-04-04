@@ -1,6 +1,6 @@
 # base_gdnative
 
-To start the project go to the folder `native` and create a build folder quer you can execute a cmake command referecing the `code` folder. You may need to update the godot "api.json" file at the `lib/api` folder with the command `godot --gdnative-generate-json-api api.json`.
+To start the project go to the folder `native` and create a build folder quer you can execute a cmake command referecing the `code` folder. You may need to update the godot "api.json" file at the `lib/api` folder with the command ```godot --gdnative-generate-json-api api.json```.
 
 To add any code file just execute the cmake command.
 
