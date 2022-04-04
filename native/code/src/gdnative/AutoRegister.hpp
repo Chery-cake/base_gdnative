@@ -15,7 +15,7 @@
 class AutoRegister{
 private:
 
-	static std::vector<std::string>& m_names() {
+	static std::vector<std::string>& m_class_names() {
 		static std::vector<std::string> instance;
 		return instance;
 	}
@@ -41,7 +41,7 @@ public:
 			godot::register_class<T>();
 		});
 
-		m_names().push_back(main_type);
+		m_class_names().push_back(main_type);
 
 		return true;
 	}
@@ -53,7 +53,7 @@ public:
 			godot::register_tool_class<T>();
 		});
 
-		m_names().push_back(main_type);
+		m_class_names().push_back(main_type);
 
 		return true;
 	}
@@ -72,35 +72,37 @@ public:
 
 	static void generate_gdns(const std::string &output_path,
 			const std::string &lib_name) {
-		bool editor = godot::Engine::get_singleton()->is_editor_hint();
-		if (editor) {
+		if (godot::Engine::get_singleton()->is_editor_hint()) {
 			std::fstream gdnlib_file(lib_name + ".gdnlib");
 			if (gdnlib_file.fail()) {
 				return;
 			}
-			for (std::string name : m_names()) {
+
+			godot::Godot::print(godot::String("--------------------------------------------------------------"));
+
+			for (std::string name : m_class_names()) {
 				std::fstream gdns(output_path + "/" + name + ".gdns");
 				if (!gdns.fail()) {
-					godot::Godot::print(
-							(std::string("gdns ") + name
-									+ " already exists. skipping...").c_str());
+					godot::Godot::print(godot::String((std::string("gdns ") + name + " already exists. skipping...").c_str()));
 					continue;
 				}
 
 				gdns.open(output_path + "/" + name + ".gdns", std::ios::out);
 				gdns
-						<< "[gd_resource type=\"NativeScript\" load_steps=2 format=2]"
+						<< "[gd_resource type=\"NativeScript\" load_steps=2 format=2]" << std::endl
 						<< std::endl << "[ext_resource path=\"res://"
 						<< lib_name
 						<< ".gdnlib\" type=\"GDNativeLibrary\" id=1]" << std::endl
-						<< "[resource]" << std::endl << "resource_name = \""
+						<< std::endl << "[resource]" << std::endl << "resource_name = \""
 						<< name << "\"" << std::endl << "class_name = \""
 						<< name << "\"" << std::endl
 						<< "library = ExtResource( 1 )" << std::endl;
 
-				godot::Godot::print((std::string("generated gdns ") + name).c_str());
+				godot::Godot::print(godot::String((std::string("generated gdns ") + name).c_str()));
 
 			}
+
+			godot::Godot::print(godot::String("--------------------------------------------------------------"));
 		}
 	}
 };
