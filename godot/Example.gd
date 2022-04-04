@@ -2,7 +2,7 @@ extends Node
 
 func _ready():
 	OS.exit_code = 1
-	var native_script = load("res://gdexample.gdns")
+	var native_script = load("res://scripts/SimpleClass.gdns")
 	print("Native Script ", native_script)
 	if not native_script || !is_instance_valid(native_script):
 		return

@@ -7,7 +7,7 @@ reloadable=true
 
 [entry]
 
-Windows.64="res://native/bin/win64/libworld.dll"
+Windows.64="res://native/bin/Windows/libworld.dll"
 
 [dependencies]
 

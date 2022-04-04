@@ -61,6 +61,8 @@ add_definitions(-DNDEBUG)
 
 add_subdirectory(../../lib build)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/gdnative)
+
 ADDGODOT()
 
 set_property(TARGET ${PROJECT_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS ${COMPILER_FLAGS})
